@@ -118,17 +118,29 @@ class ToDoListPendingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            ToDoList::find($id)->delete();
+
+            return redirect()->back()
+                ->with('message', 'Tarea Eliminada Exitosamente.');
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     public function complete(Request $request)
     {
-        $id = $request->id;
-        $statusCompleteToDoList = ToDoList::find($id);
-        $statusCompleteToDoList->status = 2;
-        $statusCompleteToDoList->save();
-
-        return redirect()->back()
-                ->with('message', 'Tarea Completada Exitosamente.');
+        try {
+            $id = $request->id;
+            $statusCompleteToDoList = ToDoList::find($id);
+            $statusCompleteToDoList->status = 2;
+            $statusCompleteToDoList->save();
+    
+            return redirect()->back()
+                    ->with('message', 'Tarea Completada Exitosamente.');
+            
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 }

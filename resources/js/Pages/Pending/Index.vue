@@ -46,7 +46,7 @@
                                 <td class="p-4 w-1/5">
                                     <div class="grid grid-cols-3">
                                         <div class="m-2">
-                                            <button>
+                                            <button @click="deleteToDo(row)">
                                                 <i class="fas fa-trash fa-2x text-red-600 hover:text-black"></i>
                                             </button>
                                         </div>
@@ -146,13 +146,36 @@ export default {
                 cancelButtonColor: '#d33',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log('vali')
                     this.$inertia.post("pending/complete", {'id' : id}, {
                         onFinish: visit => {
                             this.$swal({
                                 icon: 'success',
                                 title: 'To Do',
                                 text: 'To Do Complete',
+                                confirmButtonColor: '#008000',
+                            })
+                        }
+                    })
+                }
+            })
+        },
+        deleteToDo(data){
+            this.$swal({
+                icon: 'question',
+                title: 'To Do Delete',
+                text: '¿Eliminar Tarea?',
+                confirmButtonColor: '#008000',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    data._method = "DELETE"
+                    this.$inertia.post("pending/" + data.id, data, {
+                        onFinish: visit => {
+                            this.$swal({
+                                icon: 'success',
+                                title: 'To Do',
+                                text: 'To Do Delete',
                                 confirmButtonColor: '#008000',
                             })
                         }

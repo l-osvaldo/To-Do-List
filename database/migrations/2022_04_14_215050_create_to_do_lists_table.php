@@ -21,6 +21,7 @@ class CreateToDoListsTable extends Migration
             $table->string('descripcion');
             $table->Integer('status')->default(1)->comment('1: Pending, 2: Complete');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -21235,8 +21235,6 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonColor: '#d33'
       }).then(function (result) {
         if (result.isConfirmed) {
-          console.log('vali');
-
           _this.$inertia.post("pending/complete", {
             'id': id
           }, {
@@ -21245,6 +21243,33 @@ __webpack_require__.r(__webpack_exports__);
                 icon: 'success',
                 title: 'To Do',
                 text: 'To Do Complete',
+                confirmButtonColor: '#008000'
+              });
+            }
+          });
+        }
+      });
+    },
+    deleteToDo: function deleteToDo(data) {
+      var _this2 = this;
+
+      this.$swal({
+        icon: 'question',
+        title: 'To Do Delete',
+        text: '¿Eliminar Tarea?',
+        confirmButtonColor: '#008000',
+        showCancelButton: true,
+        cancelButtonColor: '#d33'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          data._method = "DELETE";
+
+          _this2.$inertia.post("pending/" + data.id, data, {
+            onFinish: function onFinish(visit) {
+              _this2.$swal({
+                icon: 'success',
+                title: 'To Do',
+                text: 'To Do Delete',
                 confirmButtonColor: '#008000'
               });
             }
@@ -25219,39 +25244,42 @@ var _hoisted_18 = {
 var _hoisted_19 = {
   "class": "grid grid-cols-3"
 };
-
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_20 = {
   "class": "m-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+};
+var _hoisted_21 = ["onClick"];
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fas fa-trash fa-2x text-red-600 hover:text-black"
-})])], -1
+}, null, -1
 /* HOISTED */
 );
 
-var _hoisted_21 = {
+var _hoisted_23 = [_hoisted_22];
+var _hoisted_24 = {
   "class": "m-2"
 };
-var _hoisted_22 = ["onClick"];
+var _hoisted_25 = ["onClick"];
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fas fa-pen fa-2x text-blue-600 hover:text-black"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_24 = [_hoisted_23];
-var _hoisted_25 = {
+var _hoisted_27 = [_hoisted_26];
+var _hoisted_28 = {
   "class": "m-2"
 };
-var _hoisted_26 = ["onClick"];
+var _hoisted_29 = ["onClick"];
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fas fa-check fa-2x text-green-600 hover:text-black"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_28 = [_hoisted_27];
+var _hoisted_31 = [_hoisted_30];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_RegisterAndEditModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RegisterAndEditModal");
 
@@ -25281,19 +25309,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Editado: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.updated_at), 1
         /* TEXT */
-        )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+          onClick: function onClick($event) {
+            return $options.deleteToDo(row);
+          }
+        }, _hoisted_23, 8
+        /* PROPS */
+        , _hoisted_21)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
           onClick: function onClick($event) {
             return $options.openEditarModal(row);
           }
-        }, _hoisted_24, 8
+        }, _hoisted_27, 8
         /* PROPS */
-        , _hoisted_22)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        , _hoisted_25)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
           onClick: function onClick($event) {
             return $options.complete(row.id);
           }
-        }, _hoisted_28, 8
+        }, _hoisted_31, 8
         /* PROPS */
-        , _hoisted_26)])])])]);
+        , _hoisted_29)])])])]);
       }), 128
       /* KEYED_FRAGMENT */
       ))])]), $data.isOpenRegisterEditModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_RegisterAndEditModal, {

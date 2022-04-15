@@ -25,4 +25,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::resource('pending', 'ToDoListPendingController');
     Route::post('pending/complete','ToDoListPendingController@complete')->name('pending.complete');
     Route::resource('complete', 'ToDoListCompleteController');
+    Route::post('complete/deleteAll', 'ToDoListCompleteController@deleteAll')->name('complete.deleteAll');
 });

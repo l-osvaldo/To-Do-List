@@ -122,7 +122,7 @@ class ToDoListPendingController extends Controller
             ToDoList::find($id)->delete();
 
             return redirect()->back()
-                ->with('message', 'Tarea Eliminada Exitosamente.');
+                ->with('message', 'Tarea Pendiente Eliminada Exitosamente.');
         } catch (\Throwable $th) {
             dd($th);
         }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\ToDoList;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,7 +16,8 @@ class ToDoListCompleteController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Complete/Index');
+        $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',2]])->get();
+        return Inertia::render('Complete/Index',['toDoList' => $toDoList]);
     }
 
     /**
@@ -80,6 +83,27 @@ class ToDoListCompleteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            ToDoList::find($id)->delete();
+
+            return redirect()->back()
+                ->with('message', 'Tarea Completada Eliminada Exitosamente.');
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    public function deleteAll()
+    {
+        try {
+            ToDoList::where('status',2)->delete();
+
+            return redirect()->back()
+                ->with('message', 'Tareas Completadas Eliminadas Exitosamente.');
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 }

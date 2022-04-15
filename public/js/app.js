@@ -21126,6 +21126,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ["toDoList"],
+  data: function data() {
+    return {
+      title: null,
+      isOpenRegisterEditModal: false,
+      isMode: false,
+      form: {
+        id: null,
+        titulo: null,
+        descripcion: null
+      }
+    };
+  },
+  methods: {
+    deleteAll: function deleteAll() {
+      var _this = this;
+
+      this.$swal({
+        icon: 'warning',
+        title: 'To Do Complete',
+        text: '¿Eliminar Todas las Tareas Completadas?',
+        confirmButtonColor: '#008000',
+        showCancelButton: true,
+        cancelButtonColor: '#d33'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.$inertia.post("complete/deleteAll", {
+            onFinish: function onFinish(visit) {
+              _this.$swal({
+                icon: 'success',
+                title: 'To Do',
+                text: 'To Do Complete',
+                confirmButtonColor: '#008000'
+              });
+            }
+          });
+        }
+      });
+    },
+    deleteToDo: function deleteToDo(data) {
+      var _this2 = this;
+
+      this.$swal({
+        icon: 'question',
+        title: 'To Do Delete',
+        text: '¿Eliminar Tarea Completada?',
+        confirmButtonColor: '#008000',
+        showCancelButton: true,
+        cancelButtonColor: '#d33'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          data._method = "DELETE";
+
+          _this2.$inertia.post("complete/" + data.id, data, {
+            onFinish: function onFinish(visit) {
+              _this2.$swal({
+                icon: 'success',
+                title: 'To Do',
+                text: 'To Do Delete',
+                confirmButtonColor: '#008000'
+              });
+            }
+          });
+        }
+      });
+    }
   }
 });
 
@@ -21256,7 +21323,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$swal({
         icon: 'question',
         title: 'To Do Delete',
-        text: '¿Eliminar Tarea?',
+        text: '¿Eliminar Tarea Pendiente?',
         confirmButtonColor: '#008000',
         showCancelButton: true,
         cancelButtonColor: '#d33'
@@ -25105,6 +25172,73 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
+var _hoisted_2 = {
+  "class": "py-3"
+};
+var _hoisted_3 = {
+  "class": "mx-auto max-w-7xl sm:px-6 lg:px-8"
+};
+var _hoisted_4 = {
+  "class": "px-4 py-4 overflow-hidden bg-white shadow-xl sm:rounded-lg"
+};
+var _hoisted_5 = {
+  "class": "grid grid-cols-6"
+};
+var _hoisted_6 = {
+  "class": "col-end-7 col-span-1"
+};
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fas fa-globe"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Borrar Todo ");
+
+var _hoisted_9 = [_hoisted_7, _hoisted_8];
+var _hoisted_10 = {
+  "class": "w-full table-fixed"
+};
+var _hoisted_11 = {
+  "class": "p-4 w-4/5"
+};
+var _hoisted_12 = {
+  "class": "grid grid-rows-3"
+};
+var _hoisted_13 = {
+  "class": "m-0 p-0"
+};
+var _hoisted_14 = {
+  "class": "font-bold text-2xl"
+};
+var _hoisted_15 = {
+  "class": "m-0 p-0"
+};
+var _hoisted_16 = {
+  "class": "text-sm"
+};
+var _hoisted_17 = {
+  "class": "grid grid-cols-2"
+};
+var _hoisted_18 = {
+  "class": "p-4 w-1/5"
+};
+var _hoisted_19 = {
+  "class": "grid grid-cols-3"
+};
+var _hoisted_20 = {
+  "class": "m-2 col-end-4 col-span-1"
+};
+var _hoisted_21 = ["onClick"];
+
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fas fa-trash fa-2x text-red-600 hover:text-black"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_23 = [_hoisted_22];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_AppLayout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AppLayout");
 
@@ -25113,6 +25247,35 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     header: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_1];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        onClick: _cache[0] || (_cache[0] = function () {
+          return $options.deleteAll && $options.deleteAll.apply($options, arguments);
+        }),
+        "class": "px-4 py-2 my-3 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+      }, _hoisted_9)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.toDoList, function (row) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+          key: row,
+          "class": "border"
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.titulo), 1
+        /* TEXT */
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.descripcion), 1
+        /* TEXT */
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Creado: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.created_at), 1
+        /* TEXT */
+        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, " Editado: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(row.updated_at), 1
+        /* TEXT */
+        )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+          onClick: function onClick($event) {
+            return $options.deleteToDo(row);
+          }
+        }, _hoisted_23, 8
+        /* PROPS */
+        , _hoisted_21)])])])]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))])])])])])];
     }),
     _: 1
     /* STABLE */

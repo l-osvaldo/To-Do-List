@@ -163,7 +163,7 @@ export default {
             this.$swal({
                 icon: 'question',
                 title: 'To Do Delete',
-                text: '¿Eliminar Tarea?',
+                text: '¿Eliminar Tarea Pendiente?',
                 confirmButtonColor: '#008000',
                 showCancelButton: true,
                 cancelButtonColor: '#d33',

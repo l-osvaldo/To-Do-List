@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\ToDoList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class ToDoListPendingController extends Controller
 {
@@ -15,7 +18,8 @@ class ToDoListPendingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Pending/Index');
+        $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',1]])->get();
+        return Inertia::render('Pending/Index',['toDoList' => $toDoList]);
     }
 
     /**
@@ -36,7 +40,24 @@ class ToDoListPendingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Validator::make($request->all(), [
+                'titulo'        => ['required'],
+                'descripcion'   => ['required'],
+            ])->validate();
+
+            $newToDoList = new ToDoList();
+            $newToDoList->user_id       = Auth::user()->id;
+            $newToDoList->titulo        = $request->titulo;
+            $newToDoList->descripcion   = $request->descripcion;
+            $newToDoList->save();
+
+            return redirect()->back()
+                ->with('message', 'Tarea Creada Exitosamente.');
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     /**
@@ -70,7 +91,23 @@ class ToDoListPendingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Validator::make($request->all(), [
+                'titulo'        => ['required'],
+                'descripcion'   => ['required'],
+            ])->validate();
+
+            $updateToDoList = ToDoList::find($id);
+            $updateToDoList->titulo        = $request->titulo;
+            $updateToDoList->descripcion   = $request->descripcion;
+            $updateToDoList->save();
+
+            return redirect()->back()
+                ->with('message', 'Tarea Actualizada Exitosamente.');
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     /**
@@ -82,5 +119,16 @@ class ToDoListPendingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function complete(Request $request)
+    {
+        $id = $request->id;
+        $statusCompleteToDoList = ToDoList::find($id);
+        $statusCompleteToDoList->status = 2;
+        $statusCompleteToDoList->save();
+
+        return redirect()->back()
+                ->with('message', 'Tarea Completada Exitosamente.');
     }
 }

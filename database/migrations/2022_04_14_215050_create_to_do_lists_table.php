@@ -19,6 +19,7 @@ class CreateToDoListsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('titulo');
             $table->string('descripcion');
+            $table->Integer('status')->default(1)->comment('1: Pending, 2: Complete');
             $table->timestamps();
         });
     }

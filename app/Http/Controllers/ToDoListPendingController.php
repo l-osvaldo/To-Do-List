@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class ToDoListPendingController extends Controller
 {
@@ -13,7 +15,7 @@ class ToDoListPendingController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Pending/Index');
     }
 
     /**

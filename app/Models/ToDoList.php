@@ -40,7 +40,7 @@ class ToDoList extends Model
         $dia = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('l, d');
         $mes = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('F');
         $anio = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('Y');
-        $hora = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('h:i A');
+        $hora = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('h:i:s A');
         $fecha = ucfirst($dia) . ' de ' . ucfirst($mes) . ' del ' . ucfirst($anio) . ' a las '.$hora;
         return $fecha;    
         
@@ -51,7 +51,7 @@ class ToDoList extends Model
         $dia = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('l, d');
         $mes = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('F');
         $anio = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('Y');
-        $hora = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('h:i A');
+        $hora = Carbon::parse($date)->setTimezone('America/Mexico_City')->translatedFormat('h:i:s A');
         $fecha = ucfirst($dia) . ' de ' . ucfirst($mes) . ' del ' . ucfirst($anio) . ' a las '.$hora;
         return $fecha;       
     }

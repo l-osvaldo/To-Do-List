@@ -11,6 +11,8 @@
                 <div class="md:w-11/12">
                     <div class="flex md:flex-row space-x-8">
                         <Search :toDoList="data" @search="search" />
+                        
+                        <Sort :toDoList="data" @sort="sort" />
                     </div>
                 </div>
             </div>
@@ -105,12 +107,14 @@
 import AppLayout from "@/Layouts/AppLayout"
 import RegisterAndEditModal from '../ToDoList/Partials/RegisterAndEditModal'
 import Search from '../ToDoList/Partials/Search'
+import Sort from '../ToDoList/Partials/Sort'
 
 export default {
     components: {
         AppLayout,
         RegisterAndEditModal,
-        Search
+        Search,
+        Sort
     },
     props: ["data","type"],
     data(){
@@ -232,6 +236,9 @@ export default {
             })
         },
         search(filtro){
+            this.toDo = filtro
+        },
+        sort(filtro){
             this.toDo = filtro
         }
     },

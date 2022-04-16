@@ -20,10 +20,13 @@ class ToDoList extends Model
         'titulo',
         'descripcion',
         'status',
+        'created_at',
+        'updated_at'
     ];
 
     protected $hidden = [
-        'pivot'
+        'pivot',
+        'deleted_at'
     ];
 
     public function user()

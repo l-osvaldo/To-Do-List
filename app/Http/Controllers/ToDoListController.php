@@ -19,10 +19,10 @@ class ToDoListController extends Controller
     {
         if (request()->path() === "pending") {
             $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',1]])->get();
-            return Inertia::render('ToDoList/Index',['toDoList' => $toDoList, 'type' => true]);
+            return Inertia::render('ToDoList/Index',['data' => $toDoList, 'type' => true]);
         }else {
             $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',2]])->get();
-            return Inertia::render('ToDoList/Index',['toDoList' => $toDoList, 'type' => false]);
+            return Inertia::render('ToDoList/Index',['data' => $toDoList, 'type' => false]);
         }
 
     }

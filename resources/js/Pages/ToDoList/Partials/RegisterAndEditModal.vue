@@ -86,19 +86,21 @@
 </template>
 
 <script>
-import JetLabel from '@/Jetstream/Label.vue'
+
 export default {
     props: ['title','isMode','toDoList'],
-    components: {
-        JetLabel
-    },
+    
     data(){
         return{
             form: this.$inertia.form({
                 _method: 'POST',
                 id: this.toDoList.id,
+                user_id: this.toDoList.user_id,
                 titulo: this.toDoList.titulo,
                 descripcion: this.toDoList.descripcion,
+                status: this.toDoList.status,
+                created_at: this.toDoList.created_at,
+                updated_at: this.toDoList.updated_at
             }),
             isShowValidateTitle: false,
             isShowValidateDescription: false,
@@ -109,12 +111,6 @@ export default {
             if (this.validateInputs()) {
                 this.$inertia.post("/pending", data , {
                     onFinish: visit => {
-                        this.$swal({
-                            icon: 'success',
-                            title: 'To Do',
-                            text: 'Creado Exitosamente',
-                            confirmButtonColor: '#008000',
-                        })
                         this.$emit("cerrar")
                     },
                 })                  
@@ -125,12 +121,6 @@ export default {
                 data._method = "PUT";
                 this.$inertia.post("pending/" + data.id, data , {
                     onFinish: visit => {
-                        this.$swal({
-                            icon: 'success',
-                            title: 'To Do',
-                            text: 'Actualizado Exitosamente',
-                            confirmButtonColor: '#008000',
-                        })
                         this.$emit("cerrar")
                     }
                 })                

@@ -6,7 +6,15 @@
                 Pendientes
             </h2>
         </template>
-
+        <div class="m-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-center">
+                <div class="md:w-11/12">
+                    <div class="flex md:flex-row space-x-8">
+                        <Search :toDoList="data" @search="search" />
+                    </div>
+                </div>
+            </div>
+        </div> 
         <div class="py-3">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="px-4 py-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
@@ -24,7 +32,8 @@
                     </div>
                     <table class="w-full table-fixed">
                         <tbody>
-                            <tr v-for="row in toDoList" :key="row" class="border">
+                            <tr v-for="row in toDo" :key="row" class="border">
+                                
                                 <td class="p-4 w-4/5">
                                     <div class="grid grid-rows-3">
                                         <div class="m-0 p-0">
@@ -95,13 +104,15 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout"
 import RegisterAndEditModal from '../ToDoList/Partials/RegisterAndEditModal'
+import Search from '../ToDoList/Partials/Search'
 
 export default {
     components: {
         AppLayout,
-        RegisterAndEditModal
+        RegisterAndEditModal,
+        Search
     },
-    props: ["toDoList","type"],
+    props: ["data","type"],
     data(){
         return {
             title: null,
@@ -110,9 +121,14 @@ export default {
             isMode: false,
             form: {
                 id: null,
+                user_id: null,
                 titulo: null,
                 descripcion: null,
+                status: null,
+                created_at: null,
+                updated_at: null
             },
+            toDo: this.data
         }
     },
     methods: {
@@ -122,11 +138,11 @@ export default {
             this.title = "Agregar Tarea"
             this.isMode = false;
         },
-        openEditarModal(toDoList){
+        openEditarModal(data){
             this.isOpenRegisterEditModal = true
             this.isOpenDetailModal = false
             this.isMode = true
-            this.form = Object.assign({}, toDoList)
+            this.form = Object.assign({}, data)
             this.title = "Editar Información de la Tarea"
         },
         closeModal() {
@@ -137,8 +153,12 @@ export default {
         resetForm(){
             this.form = {
                 id: null,
+                user_id: null,
                 titulo: null,
                 descripcion: null,
+                status: null,
+                created_at: null,
+                updated_at: null
             }
         },
         complete(id){
@@ -211,6 +231,14 @@ export default {
                 }
             })
         },
+        search(filtro){
+            this.toDo = filtro
+        }
     },
+    watch: {
+        data() {
+            this.toDo =  this.data
+        },
+    }
 }
 </script>

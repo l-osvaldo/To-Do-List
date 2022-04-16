@@ -22,8 +22,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('pending', 'ToDoListPendingController');
-    Route::post('pending/complete','ToDoListPendingController@complete')->name('pending.complete');
-    Route::resource('complete', 'ToDoListCompleteController');
-    Route::post('complete/deleteAll', 'ToDoListCompleteController@deleteAll')->name('complete.deleteAll');
+    Route::resource('pending', 'ToDoListController');
+    Route::post('pending/complete','ToDoListController@complete')->name('pending.complete');
+    Route::get('complete', 'ToDoListController@index')->name('complete');
+    Route::post('complete/deleteAll', 'ToDoListController@deleteAll')->name('complete.deleteAll');
 });

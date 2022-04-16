@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Pendientes">
+    <AppLayout :title="title">
 
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -12,9 +12,13 @@
                 <div class="px-4 py-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
                     <div class="grid grid-cols-6">
                         <div class="col-end-7 col-span-1">
-                            <button @click="openRegister" class="px-4 py-2 my-3 font-bold text-white bg-green-500 rounded  hover:bg-green-700">
+                            <button v-if="type" @click="openRegister" class="px-4 py-2 my-3 font-bold text-white bg-green-500 rounded  hover:bg-green-700">
                                 <i class="fas fa-plus"></i>
                                 Agregar Tarea
+                            </button>
+                            <button v-else @click="deleteAll" class="px-4 py-2 my-3 font-bold text-white bg-red-500 rounded  hover:bg-red-700">
+                                <i class="fas fa-globe"></i>
+                                Borrar Todo
                             </button>
                         </div>                        
                     </div>
@@ -44,22 +48,22 @@
                                     </div>
                                 </td>
                                 <td class="p-4 w-1/5">
-                                    <div class="grid grid-cols-3">
-                                        <div class="m-2">
-                                            <button @click="deleteToDo(row)">
-                                                <i class="fas fa-trash fa-2x text-red-600 hover:text-black"></i>
+                                    <div class="flex flex-row-reverse">
+                                        <div class="m-5" v-if="type">
+                                            <button @click="complete(row.id)">
+                                                <i class="fas fa-check fa-2x text-green-600 hover:text-black"></i>
                                             </button>
-                                        </div>
-                                        <div class="m-2">
+                                        </div>                                        
+                                        <div class="m-5" v-if="type">
                                             <button @click="openEditarModal(row)">
                                                 <i class="fas fa-pen fa-2x text-blue-600 hover:text-black"></i>
                                             </button>
                                         </div>
-                                        <div class="m-2">
-                                            <button @click="complete(row.id)">
-                                                <i class="fas fa-check fa-2x text-green-600 hover:text-black"></i>
+                                        <div class="m-5">
+                                            <button @click="deleteToDo(row)">
+                                                <i class="fas fa-trash fa-2x text-red-600 hover:text-black"></i>
                                             </button>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </td>
                             </tr>
@@ -90,18 +94,19 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout"
-import RegisterAndEditModal from '../Pending/Partials/RegisterAndEditModal'
+import RegisterAndEditModal from '../ToDoList/Partials/RegisterAndEditModal'
 
 export default {
     components: {
         AppLayout,
         RegisterAndEditModal
     },
-    props: ["toDoList"],
+    props: ["toDoList","type"],
     data(){
         return {
             title: null,
             isOpenRegisterEditModal: false,
+            title: this.type ? 'Pendientes' : 'Completadas',
             isMode: false,
             form: {
                 id: null,
@@ -182,7 +187,30 @@ export default {
                     })
                 }
             })
-        }
+        },
+        deleteAll(){
+            this.$swal({
+                icon: 'warning',
+                title: 'To Do Complete',
+                text: '¿Eliminar Todas las Tareas Completadas?',
+                confirmButtonColor: '#008000',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$inertia.post("complete/deleteAll", {
+                        onFinish: visit => {
+                            this.$swal({
+                                icon: 'success',
+                                title: 'To Do',
+                                text: 'To Do Complete',
+                                confirmButtonColor: '#008000',
+                            })
+                        }
+                    })
+                }
+            })
+        },
     },
 }
 </script>

@@ -7,9 +7,8 @@ use App\Models\ToDoList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
-use Carbon\Carbon;
 
-class ToDoListPendingController extends Controller
+class ToDoListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,14 @@ class ToDoListPendingController extends Controller
      */
     public function index()
     {
-        $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',1]])->get();
-        return Inertia::render('Pending/Index',['toDoList' => $toDoList]);
+        if (request()->path() === "pending") {
+            $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',1]])->get();
+            return Inertia::render('ToDoList/Index',['toDoList' => $toDoList, 'type' => true]);
+        }else {
+            $toDoList = ToDoList::where([['user_id',Auth::user()->id],['status',2]])->get();
+            return Inertia::render('ToDoList/Index',['toDoList' => $toDoList, 'type' => false]);
+        }
+
     }
 
     /**
@@ -139,6 +144,19 @@ class ToDoListPendingController extends Controller
             return redirect()->back()
                     ->with('message', 'Tarea Completada Exitosamente.');
             
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
+    public function deleteAll()
+    {
+        try {
+            ToDoList::where('status',2)->delete();
+
+            return redirect()->back()
+                ->with('message', 'Tareas Completadas Eliminadas Exitosamente.');
+
         } catch (\Throwable $th) {
             dd($th);
         }

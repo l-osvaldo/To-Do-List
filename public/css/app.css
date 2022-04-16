@@ -1016,11 +1016,20 @@ select {
 .col-end-4 {
   grid-column-end: 4;
 }
+.col-end-auto {
+  grid-column-end: auto;
+}
 .m-0 {
   margin: 0px;
 }
 .m-2 {
   margin: 0.5rem;
+}
+.m-6 {
+  margin: 1.5rem;
+}
+.m-5 {
+  margin: 1.25rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -1234,6 +1243,9 @@ select {
 .flex-1 {
   flex: 1 1 0%;
 }
+.flex-auto {
+  flex: 1 1 auto;
+}
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -1287,6 +1299,13 @@ select {
      -moz-appearance: none;
           appearance: none;
 }
+.auto-cols-max {
+  grid-auto-columns: -webkit-max-content;
+  grid-auto-columns: max-content;
+}
+.auto-cols-auto {
+  grid-auto-columns: auto;
+}
 .grid-flow-col {
   grid-auto-flow: column;
 }
@@ -1307,6 +1326,9 @@ select {
 }
 .flex-row {
   flex-direction: row;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 .flex-col {
   flex-direction: column;

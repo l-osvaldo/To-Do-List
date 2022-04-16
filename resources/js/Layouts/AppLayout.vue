@@ -20,7 +20,7 @@
                                 <JetNavLink :href="route('pending.index')" :active="route().current('pending.index')">
                                     Tareas Pendientes
                                 </JetNavLink>
-                                <JetNavLink :href="route('complete.index')" :active="route().current('complete.index')">
+                                <JetNavLink :href="route('complete')" :active="route().current('complete')">
                                     Tareas Completadas
                                 </JetNavLink>
                             </div>

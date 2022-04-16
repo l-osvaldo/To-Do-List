@@ -10,9 +10,9 @@
             <div class="flex flex-col md:flex-row justify-center">
                 <div class="md:w-11/12">
                     <div class="flex md:flex-row space-x-8">
-                        <Search :toDoList="data" @search="search" />
+                        <Search :toDoList="data" @search="search" :key="data" />
                         
-                        <Sort :toDoList="data" @sort="sort" />
+                        <Sort :toDoList="data" @sort="sort" :key="data" />
                     </div>
                 </div>
             </div>
@@ -26,11 +26,16 @@
                                 <i class="fas fa-plus"></i>
                                 Agregar Tarea
                             </button>
-                            <button v-else @click="deleteAll" class="px-4 py-2 my-3 font-bold text-white bg-red-500 rounded  hover:bg-red-700">
+                            <button v-else-if="data.length != 0" @click="deleteAll" class="px-4 py-2 my-3 font-bold text-white bg-red-500 rounded  hover:bg-red-700">
                                 <i class="fas fa-globe"></i>
                                 Borrar Todo
                             </button>
                         </div>                        
+                    </div>
+                    <div v-if="data.length == 0" class="grid justify-items-center">
+                        <p class="text-2xl text-red-500">
+                            No existen tareas
+                        </p>
                     </div>
                     <table class="w-full table-fixed">
                         <tbody>

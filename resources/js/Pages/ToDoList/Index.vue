@@ -162,15 +162,13 @@ import AppLayout from "@/Layouts/AppLayout"
 import RegisterAndEditModal from '../ToDoList/Partials/RegisterAndEditModal'
 import Search from '../ToDoList/Partials/Search'
 import Sort from '../ToDoList/Partials/Sort'
-import Pagination from '../ToDoList/Partials/Pagination'
 
 export default {
     components: {
         AppLayout,
         RegisterAndEditModal,
         Search,
-        Sort,
-        Pagination
+        Sort
     },
     props: ["data","type"],
     data(){

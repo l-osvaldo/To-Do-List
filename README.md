@@ -20,3 +20,6 @@ Prueba Técnica To-Do List
     ```sh
     php artisan migrate
     ```
+6. Ir a 
+    http://to-do-list.test/
+    

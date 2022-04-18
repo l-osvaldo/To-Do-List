@@ -29,10 +29,10 @@
 
 <script>
 export default {
-    props: ['toDoList','input'],
+    props: ['toDoList'],
     data(){
         return{
-            value: this.input,
+            value: "",
             filtro: this.toDoList,
             coincidence: false
         }

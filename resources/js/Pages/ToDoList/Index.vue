@@ -10,7 +10,7 @@
             <div class="flex flex-col md:flex-row justify-center">
                 <div class="md:w-11/12">
                     <div class="flex md:flex-row space-x-8">
-                        <Search :toDoList="data" :input="empty" @search="search" :key="data" />
+                        <Search :toDoList="data" @search="search" :key="data" />
                         
                         <Sort :toDoList="data" @sort="sort" :key="data" />
                     </div>
@@ -189,7 +189,6 @@ export default {
             activeNextPage: false,
             activePreviousPage: false,
             activeEndPage: false,
-            empty: ''
         }
     },
     methods: {

@@ -21873,7 +21873,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       status: null,
       created_at: null,
       updated_at: null
-    }), _defineProperty(_ref, "toDo", this.data), _defineProperty(_ref, "numPage", 1), _defineProperty(_ref, "totalPage", this.data.length % 5 == 0 ? this.data.length / 5 : Math.trunc(this.data.length / 5) + 1), _defineProperty(_ref, "totalTarea", this.data.length), _defineProperty(_ref, "activeStartPage", false), _defineProperty(_ref, "activeNextPage", false), _defineProperty(_ref, "activePreviousPage", false), _defineProperty(_ref, "activeEndPage", false), _defineProperty(_ref, "empty", ''), _ref;
+    }), _defineProperty(_ref, "toDo", this.data), _defineProperty(_ref, "numPage", 1), _defineProperty(_ref, "totalPage", this.data.length % 5 == 0 ? this.data.length / 5 : Math.trunc(this.data.length / 5) + 1), _defineProperty(_ref, "totalTarea", this.data.length), _defineProperty(_ref, "activeStartPage", false), _defineProperty(_ref, "activeNextPage", false), _defineProperty(_ref, "activePreviousPage", false), _defineProperty(_ref, "activeEndPage", false), _ref;
   },
   methods: {
     openRegister: function openRegister() {
@@ -22156,10 +22156,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['toDoList', 'input'],
+  props: ['toDoList'],
   data: function data() {
     return {
-      value: this.input,
+      value: "",
       filtro: this.toDoList,
       coincidence: false
     };
@@ -26644,12 +26644,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Search, {
         toDoList: $props.data,
-        input: $data.empty,
         onSearch: $options.search,
         key: $props.data
       }, null, 8
       /* PROPS */
-      , ["toDoList", "input", "onSearch"])), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Sort, {
+      , ["toDoList", "onSearch"])), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Sort, {
         toDoList: $props.data,
         onSort: $options.sort,
         key: $props.data

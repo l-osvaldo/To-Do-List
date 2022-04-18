@@ -10,7 +10,7 @@
             <div class="flex flex-col md:flex-row justify-center">
                 <div class="md:w-11/12">
                     <div class="flex md:flex-row space-x-8">
-                        <Search :toDoList="data" @search="search" :key="data" />
+                        <Search :toDoList="data" :input="empty" @search="search" :key="data" />
                         
                         <Sort :toDoList="data" @sort="sort" :key="data" />
                     </div>
@@ -86,12 +86,6 @@
                         </tbody>
                     </table>
 
-                    <!-- <Pagination 
-                        v-if="toDo.length > 0"
-                        :toDoList="data" 
-                        @pagination="pagination" 
-                        :totalToDo="modo == 2 ? toDo.length: data.length"
-                        :key="toDo"/> -->
                     <div v-if="toDo.length > 0" class="grid grid-cols-2">
                         <div>
                             <p class="m-2 font-bold">
@@ -108,6 +102,7 @@
                                     <i class="fas fa-angle-double-left fa-2x"></i>
                                 </button>
                                 <button 
+                                    @click="previousPage"
                                     class="text-center items-center justify-center m-2" 
                                     :class="[ activePreviousPage ? 'hover:text-blue-600' : 'hover:text-gray-500']" 
                                     :disabled="!activePreviousPage" title="Página anterior">
@@ -193,7 +188,8 @@ export default {
             activeStartPage: false,
             activeNextPage: false,
             activePreviousPage: false,
-            activeEndPage: false
+            activeEndPage: false,
+            empty: ''
         }
     },
     methods: {
@@ -213,7 +209,7 @@ export default {
         closeModal() {
             this.isOpenRegisterEditModal = false
             this.title = ""
-            this.resetForm()            
+            this.resetForm()           
         },
         resetForm(){
             this.form = {
@@ -238,6 +234,7 @@ export default {
                 if (result.isConfirmed) {
                     this.$inertia.post("pending/complete", {'id' : id}, {
                         onFinish: visit => {
+                            this.activeBtnPagination()
                             this.$swal({
                                 icon: 'success',
                                 title: 'To Do',
@@ -262,6 +259,7 @@ export default {
                     data._method = "DELETE"
                     this.$inertia.post("pending/" + data.id, data, {
                         onFinish: visit => {
+                            this.activeBtnPagination()
                             this.$swal({
                                 icon: 'success',
                                 title: 'To Do',
@@ -301,28 +299,29 @@ export default {
             this.totalTarea = this.toDo.length
         },
         activeBtnPagination(){
-            console.log(this.totalPage,this.numPage, this.totalPage > 1)
-            this.activeStartPage = this.totalPage > 1 ? true:false
-            // this.activeNextPage = this.totalPage > this.numPage && this.numPage > 1 ? true:false,
-            // this.activePreviousPage = this.numPage <= this.totalPage && this.numPage > 1 ? true : false,
-            this.activeEndPage = this.numPage == this.totalPage ? true:false
+            this.activeStartPage = this.numPage > 1 ? true:false
+            this.activePreviousPage = this.numPage > 1 ? true : false,
+            this.activeNextPage = this.totalPage > this.numPage && this.totalPage > 1 ? true:false,
+            this.activeEndPage = this.numPage != this.totalPage && this.totalPage > 1 ? true:false
         },
         search(filtro){    
             this.toDo = filtro        
             if (filtro.length == this.data.length) this.range(1)  
             
-            this.calcularTotales()         
+            this.calcularTotales()  
+            this.activeBtnPagination()       
         },
         sort(filtro){
             this.toDo = filtro
+            this.numPage = 1
             this.calcularTotales()
+            this.activeBtnPagination()
             this.range(1)
         },
         range(page){
             var start = (page * 5) - 5
             var end = (page * 5) - 1
             var index = 0
-            console.log(page, start, end, index)
 
             this.toDo = this.data.filter( toDo =>  {
                 var bandera = false
@@ -357,7 +356,9 @@ export default {
     watch: {
         data() {
             this.toDo =  this.data
-            this.calcularTotales()
+            this.numPage = 1
+            this.calcularTotales()            
+            this.activeBtnPagination() 
             this.range(1)
         },
     },

@@ -86,7 +86,7 @@
 </template>
 
 <script>
-
+import JetLabel from '@/Jetstream/Label.vue'
 export default {
     props: ['title','isMode','toDoList'],
     
@@ -105,6 +105,9 @@ export default {
             isShowValidateTitle: false,
             isShowValidateDescription: false,
         }
+    },
+    components: {
+        JetLabel
     },
     methods:{
         save(data) {

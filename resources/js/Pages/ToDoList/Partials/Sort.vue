@@ -7,8 +7,8 @@
                         <label for="sortToDo">
                             Ordenar por:
                         </label>
-                        <div class="mt-1">
-                            <select class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none  focus:outline-none focus:shadow-outline"
+                        <div class="relative flex w-full flex-wrap items-stretch mb-3">
+                            <select class="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full pl-10"
                                 id="sortToDo"
                                 v-model="selected"
                                 @change="sortToDoMethod">
@@ -133,8 +133,8 @@ export default {
             // Descomponemos la cadena para obtener la fecha, tiene un formato "Miércoles, 13 de Abril del 2022 a las 03:22:17 p. m."
             var splitFecha = date.split(' ')
             var splitHora = splitFecha[8].split(':')
+            
             // Formato de fecha para comparar
-
             return new Date(splitFecha[5], meses.indexOf(splitFecha[3]), splitFecha[1], splitHora[0], splitHora[1], splitHora[2])
         }
     }
